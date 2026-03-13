@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>D'ante McCurty</title>
+
+    <link rel="icon" href="/assets/bananabread.ico" />
+    <link rel="stylesheet" href="/members/dante/css/dante.css" />
+  </head>
+
+  <body>
+    <header class="top">
+      <nav class="nav">
+      </nav>
+
+      <div class="title-wrap">
+        <h1 class="name">D'ante McCurty</h1>
+        <p class="subtitle">
+          4th year CS major · Muir College · UC San Diego
+        </p>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="card profile">
+        <div class="card-head">
+          <h2 id="profileTitle">profile</h2>
+        </div>
+
+        <div class="profile-grid">
+          <div class="img-frame">
+            <!-- Put image at: members/dante/images/dante.jpg (or change src) -->
+            <img
+              src="/members/dante/images/dante.jpg"
+              alt="Photo of D'ante"
+              onload="this.nextElementSibling.style.display='none';"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
+            />
+            <div class="img-placeholder">
+              <div>
+                <p class="ph-title">Place image here</p>
+                <p class="ph-sub">/members/dante/images/dante.jpg</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-text">
+            <p class="lead">
+              Hi, I’m D’ante. I’m a 4th year student studying Computer Science,
+              and I’m from Muir College at UCSD.
+            </p>
+
+            <h3 class="mini-title">about me</h3>
+            <ul class="bullets">
+              <li>fav colors: red, black, pink, purple</li>
+              <li>huge movie fanatic (Marvel, DC, Star Wars)</li>
+              <li>building legos is a top tier hobby</li>
+              <li>PS5 games and gaming overall</li>
+              <li>loves watching movies</li>
+              <li>likes Tyler, The Creator</li>
+              <li>homebody</li>
+              <li>loves asian cuisine</li>
+              <li>favorite holiday: Christmas</li>
+            </ul>
+          </div>
+        </div>
+    </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head">
+            <h2 id="gamesTitle">Games I’ve Played</h2>
+          </div>
+
+          <p class="muted">
+            Click for a random game.
+          </p>
+
+          <button id="gameBtn" class="btn" type="button">
+            pick a game
+          </button>
+
+          <p id="gameOut" class="output" aria-live="polite"></p>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h2 id="moviesTitle">Movies I’ve Watched</h2>
+          </div>
+
+          <p class="muted">
+            Click for a random movie.
+          </p>
+
+          <button id="movieBtn" class="btn" type="button">
+            pick a movie
+          </button>
+
+          <p id="movieOut" class="output" aria-live="polite"></p>
+        </div>
+    </div>
+    </main>
+
+    <footer class="footer">
+    </footer>
+
+    <script src="/members/dante/js/dante.js"></script>
+  </body>
+</html>
