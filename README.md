@@ -1,3 +1,10 @@
 # CSE-135-Site
+---
 
-[link to our site](https://bananabread.bar/)
+- Naina Singh
+- Hisham Baobaid
+- D'ante Mccurty
+
+---
+
+[Link to our site](https://bananabread.bar/)
