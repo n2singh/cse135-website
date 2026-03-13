@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HW2 Echo Form</title>
+</head>
+<body>
+  <h1>HW2 Echo Form</h1>
+
+  <p>
+    This page submits data to the HW2 echo endpoints (PHP, Python, Ruby).
+    With JavaScript ON, you can choose language + method + encoding.
+    With JavaScript OFF, use the fallback forms below.
+  </p>
+
+  <hr>
+
+  <h2>JavaScript ON (full features)</h2>
+
+  <form id="echoForm">
+    <label>
+      Language:
+      <select id="lang">
+        <option value="php">PHP</option>
+        <option value="python">Python</option>
+        <option value="ruby">Ruby</option>
+      </select>
+    </label>
+
+    <br><br>
+
+    <label>
+      Method:
+      <select id="method">
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+        <option value="PUT">PUT</option>
+        <option value="DELETE">DELETE</option>
+      </select>
+    </label>
+
+    <br><br>
+
+    <label>
+      Encoding:
+      <select id="encoding">
+        <option value="application/x-www-form-urlencoded">x-www-form-urlencoded</option>
+        <option value="application/json">application/json</option>
+      </select>
+    </label>
+
+    <br><br>
+
+    <label>
+      Field 1 (key):
+      <input id="key1" type="text" value="food" />
+    </label>
+    <label>
+      Value:
+      <input id="val1" type="text" value="banana" />
+    </label>
+
+    <br><br>
+
+    <label>
+      Field 2 (key):
+      <input id="key2" type="text" value="score" />
+    </label>
+    <label>
+      Value:
+      <input id="val2" type="text" value="100" />
+    </label>
+
+    <br><br>
+
+    <button type="submit">Send Request</button>
+  </form>
+
+  <h3>Result</h3>
+  <pre id="out">(submit the form)</pre>
+
+  <noscript>
+    <p><strong>JavaScript is OFF.</strong> Use the fallback forms below.</p>
+  </noscript>
+
+  <hr>
+
+  <h2>JavaScript OFF fallback (reduced features)</h2>
+  <p>
+    These are simple HTML forms that still let you test echo endpoints.
+    They only use GET/POST and x-www-form-urlencoded (works without JS).
+  </p>
+
+  <h3>Fallback GET</h3>
+  <form method="GET" action="/cgi-bin/hw2/php/echo-php.php">
+    <p>
+      This fallback targets PHP (you can change the action URL manually if needed).
+    </p>
+    <label>food: <input name="food" value="banana"></label>
+    <label>score: <input name="score" value="100"></label>
+    <button type="submit">GET (PHP Echo)</button>
+  </form>
+
+  <h3>Fallback POST</h3>
+  <form method="POST" action="/cgi-bin/hw2/php/echo-php.php">
+    <label>food: <input name="food" value="banana"></label>
+    <label>score: <input name="score" value="100"></label>
+    <button type="submit">POST (PHP Echo)</button>
+  </form>
+
+  <script>
+    const endpoints = {
+      php: "/cgi-bin/hw2/php/echo-php.php",
+      python: "/cgi-bin/hw2/python/echo-python.py",
+      ruby: "/cgi-bin/hw2/ruby/echo-ruby.rb",
+    };
+
+    function buildData() {
+      const k1 = document.getElementById("key1").value.trim();
+      const v1 = document.getElementById("val1").value;
+      const k2 = document.getElementById("key2").value.trim();
+      const v2 = document.getElementById("val2").value;
+
+      const obj = {};
+      if (k1) obj[k1] = v1;
+      if (k2) obj[k2] = v2;
+      return obj;
+    }
+
+    function toQuery(obj) {
+      const usp = new URLSearchParams();
+      for (const [k, v] of Object.entries(obj)) usp.append(k, v);
+      return usp.toString();
+    }
+
+    document.getElementById("echoForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const lang = document.getElementById("lang").value;
+      const method = document.getElementById("method").value;
+      const encoding = document.getElementById("encoding").value;
+      const urlBase = endpoints[lang];
+
+      const dataObj = buildData();
+      const out = document.getElementById("out");
+      out.textContent = "Loading...";
+
+      try {
+        let url = urlBase;
+        let fetchOpts = { method, headers: {} };
+
+        // GET/DELETE: send as query string
+        if (method === "GET" || method === "DELETE") {
+          const qs = toQuery(dataObj);
+          if (qs) url += "?" + qs;
+        } else {
+          // POST/PUT: send in body
+          if (encoding === "application/json") {
+            fetchOpts.headers["Content-Type"] = "application/json";
+            fetchOpts.body = JSON.stringify(dataObj);
+          } else {
+            fetchOpts.headers["Content-Type"] = "application/x-www-form-urlencoded";
+            fetchOpts.body = toQuery(dataObj);
+          }
+        }
+
+        const resp = await fetch(url, fetchOpts);
+        const text = await resp.text();
+
+        // Try to pretty print JSON if response is JSON
+        try {
+          const j = JSON.parse(text);
+          out.textContent = JSON.stringify(j, null, 2);
+        } catch {
+          out.textContent = text;
+        }
+      } catch (err) {
+        out.textContent = "Error: " + err;
+      }
+    });
+  </script>
+</body>
+</html>

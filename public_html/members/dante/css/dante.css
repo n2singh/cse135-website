@@ -1,0 +1,249 @@
+:root {
+  /* easy-on-eyes red scheme + black text */
+  --bg: #cd3b3b;
+  --card: #ffffff;
+  --red-soft: #d66868;
+  --red-mid: #dc6e6e;
+  --red-accent: #d84a4a;
+
+  --text: #000000;
+  --muted: #222222;
+  --border: rgba(0, 0, 0, 0.16);
+
+  --shadow: 0 10px 22px rgba(0, 0, 0, 0.10);
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 20% 0%, rgba(255, 179, 179, 0.35), transparent 52%),
+              radial-gradient(circle at 80% 10%, rgba(216, 74, 74, 0.12), transparent 55%),
+              var(--bg);
+}
+
+a {
+  color: var(--text);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.nav {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 14px 16px 0;
+}
+
+.back {
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(255, 214, 214, 0.8);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.back:hover {
+  background: rgba(255, 179, 179, 0.9);
+}
+
+.top {
+  padding-bottom: 18px;
+}
+
+.title-wrap {
+  max-width: 1020px;
+  margin: 10px auto 0;
+  padding: 18px 16px 0;
+}
+
+.name {
+  margin: 0;
+  font-size: 2.2rem;
+  letter-spacing: 0.2px;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.container {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 0 16px 36px;
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  text-transform: lowercase;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.img-frame {
+  border-radius: 14px;
+  border: 1px solid rgba(216, 74, 74, 0.35);
+  background: rgba(255, 214, 214, 0.55);
+  padding: 12px;
+}
+
+.img-frame img {
+  width: 100%;
+  height: 320px;
+  object-fit: contain;
+  display: block;
+  border-radius: 12px;
+  background: rgba(255, 246, 246, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.img-placeholder {
+  display: none;
+  height: 320px;
+  place-items: center;
+  text-align: center;
+  border-radius: 12px;
+  background: rgba(255, 246, 246, 0.85);
+  border: 1px dashed rgba(0, 0, 0, 0.25);
+  padding: 14px;
+}
+
+.ph-title {
+  margin: 0;
+  font-weight: 800;
+}
+
+.ph-sub {
+  margin: 6px 0 0;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.profile-text .lead {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.mini-title {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  text-transform: lowercase;
+  border-left: 6px solid var(--red-accent);
+  padding-left: 10px;
+}
+
+.bullets {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.bullets li {
+  margin: 6px 0;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.muted {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  background: rgba(255, 179, 179, 0.65);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: rgba(216, 74, 74, 0.18);
+  border-color: rgba(216, 74, 74, 0.55);
+}
+
+.output {
+  margin: 12px 0 0;
+  padding: 12px 12px;
+  border-radius: 12px;
+  background: rgba(255, 214, 214, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  min-height: 44px;
+  font-weight: 700;
+}
+
+.footer {
+  padding: 10px 16px 28px;
+  text-align: center;
+}
+
+.footer-text {
+  margin: 0;
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: 600;
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .img-frame img,
+  .img-placeholder {
+    height: 260px;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
