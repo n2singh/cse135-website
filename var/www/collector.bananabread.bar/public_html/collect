@@ -1,0 +1,30 @@
+<?php
+// Allow test site to send data
+header("Access-Control-Allow-Origin: https://test.bananabread.bar");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Credentials: false");
+
+// Handle preflight
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit();
+}
+
+// Only allow POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    exit();
+}
+
+$raw = file_get_contents("php://input");
+if (!$raw) {
+    http_response_code(400);
+    exit();
+}
+
+// Append to file
+file_put_contents(__DIR__ . "/collect.jsonl", $raw . "\n", FILE_APPEND);
+
+http_response_code(204);
+?>
