@@ -23,33 +23,29 @@ require_login();
             <?php if ($_SESSION["user"]["role"] === "super_admin"): ?>
                 <p class="small">You have full access to all analytics pages and saved reports.</p>
                 <ul>
-                    <li><a href="/hw4/reports/charts.php">Performance Charts</a></li>
-                    <li><a href="/hw4/reports/table.php">Behavior Data Table</a></li>
-                    <li><a href="/hw4/reports/view-performance.php">Saved Performance Report</a></li>
-                    <li><a href="/hw4/reports/view-behavior.php">Saved Behavior Report</a></li>
-		    <li><a href="/hw4/reports/heatmap.php">Click Heatmap</a></li>
+                    <li><a href="/hw4/reports/charts.php">Performance Chart (HW4)</a></li>
+                    <li><a href="/hw4/reports/table.php">Behavior Data Table (HW4)</a></li>
+                    <li><a href="/hw4/reports/view-performance.php">Performance Report</a></li>
+		            <li><a href="/hw4/reports/heatmap.php">Behavior Report</a></li>
+		            <li><a href="/hw4/reports/event-scatter.php">Engagement Report</a></li>
+		            <li><a href="/hw4/reports/saved.php">Saved Reports</a></li>
                 </ul>
 
             <?php elseif ($_SESSION["user"]["role"] === "analyst"): ?>
                 <p class="small">You can access your assigned analytics sections and saved reports.</p>
                 <ul>
-                    <?php if (user_can_access_section('performance')): ?>
-                        <li><a href="/hw4/reports/charts.php">Performance Charts</a></li>
-                        <li><a href="/hw4/reports/view-performance.php">Saved Performance Report</a></li>
-                    <?php endif; ?>
-
-                    <?php if (user_can_access_section('behavior')): ?>
-                        <li><a href="/hw4/reports/table.php">Behavior Data Table</a></li>
-                        <li><a href="/hw4/reports/view-behavior.php">Saved Behavior Report</a></li>
-                        <li><a href="/hw4/reports/heatmap.php">Click Heatmap</a></li>
-		    <?php endif; ?>
+                    <li><a href="/hw4/reports/charts.php">Performance Chart (HW4)</a></li>
+                    <li><a href="/hw4/reports/table.php">Behavior Data Table (HW4)</a></li>
+                    <li><a href="/hw4/reports/view-behavior.php">Performance Report</a></li>
+                    <li><a href="/hw4/reports/heatmap.php">Behavior Report</a></li>
+                    <li><a href="/hw4/reports/event-scatter.php">Engagement Report</a></li>
+                    <li><a href="/hw4/reports/saved.php">Saved Reports</a></li>
                 </ul>
 
             <?php else: ?>
-                <p class="small">You are logged in as a viewer. You can only access saved reports.</p>
+                <p class="small">You are logged in as a viewer. You can only access to saved reports.</p>
                 <ul>
-                    <li><a href="/hw4/reports/view-performance.php">Saved Performance Report</a></li>
-                    <li><a href="/hw4/reports/view-behavior.php">Saved Behavior Report</a></li>
+                    <li><a href="/hw4/reports/saved.php">View Saved Reports</a></li>
                 </ul>
             <?php endif; ?>
         </div>

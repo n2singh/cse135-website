@@ -19,36 +19,40 @@
 
       <div class="nav-links">
         <?php if (!is_logged_in()): ?>
+
           <a href="/hw4/login.php">Login</a>
+
         <?php else: ?>
+
           <?php $role = $_SESSION["user"]["role"] ?? ""; ?>
 
-          <?php if ($role === "super_admin" || $role === "analyst"): ?>
+          <!-- VIEWER NAVIGATION -->
+          <?php if ($role === "viewer"): ?>
+
+            <a href="/hw4/index.php">Home</a>
+            <a href="/hw4/reports/saved.php">Saved Reports</a>
+            <a href="/hw4/logout.php">Logout</a>
+
+          <!-- ANALYST / ADMIN NAVIGATION -->
+          <?php else: ?>
+
             <a href="/hw4/index.php">Home</a>
 
             <?php if ($role === "super_admin" || user_can_access_section('behavior')): ?>
-              <a href="/hw4/reports/table.php">Data Table</a>
+              <a href="/hw4/reports/table.php">Data Table (HW4)</a>
             <?php endif; ?>
 
             <?php if ($role === "super_admin" || user_can_access_section('performance')): ?>
-              <a href="/hw4/reports/charts.php">Charts</a>
+              <a href="/hw4/reports/charts.php">Charts (HW4)</a>
             <?php endif; ?>
-
-	<!-- NEW HEATMAP REPORT -->
-        <a href="/hw4/reports/heatmap.php">Heatmap</a> 
+	    <a href="/hw4/reports/view-performance.php">Performance</a>
+            <a href="/hw4/reports/heatmap.php">Behavior</a>
+            <a href="/hw4/reports/event-scatter.php">Engagement</a>
+	    <a href="/hw4/reports/saved.php">Saved Reports</a>
+            <a href="/hw4/logout.php">Logout</a>
 
           <?php endif; ?>
 
-          <?php if (
-            $role === "super_admin" ||
-            $role === "analyst" ||
-            $role === "viewer"
-          ): ?>
-            <a href="/hw4/reports/view-performance.php">Performance</a>
-            <a href="/hw4/reports/view-behavior.php">Behavior</a>
-          <?php endif; ?>
-
-          <a href="/hw4/logout.php">Logout</a>
         <?php endif; ?>
       </div>
 

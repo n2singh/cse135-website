@@ -2,6 +2,7 @@
 require_once __DIR__ . "/../includes/auth.php";
 require_once __DIR__ . "/../includes/db.php";
 require_login();
+require_role(["super_admin","analyst"]);
 
 // 1) Get pages that actually have click events
 $pageStmt = $pdo->query("
@@ -156,7 +157,8 @@ $exportHref = "export_heatmap_pdf.php?page=" . rawurlencode($selectedPage);
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Click Heatmap</title>
-  <link rel="stylesheet" href="/hw4/assets/style.css" />
+  <link rel="icon" href="/assets/bananabread.ico"/>
+  <link rel="stylesheet" href="/hw4/assets/site.css" />
   <style>
     .controls {
       display: flex;
@@ -174,15 +176,15 @@ $exportHref = "export_heatmap_pdf.php?page=" . rawurlencode($selectedPage);
       padding: 10px;
       border-radius: 10px;
       border: 1px solid #444;
-      background: #0f0f0f;
-      color: #eee;
+      background: #f1e4ba;
+      color: #66585b;
     }
 
     .heatmap-wrap {
       overflow: auto;
       border: 1px solid #333;
       border-radius: 12px;
-      background: #161616;
+      background: #f1e4ba;
       padding: 12px;
     }
 
@@ -210,7 +212,7 @@ $exportHref = "export_heatmap_pdf.php?page=" . rawurlencode($selectedPage);
       position: absolute;
       z-index: 5;
       font-size: 12px;
-      color: #333;
+      color: #eee;
       background: rgba(255,255,255,0.8);
       padding: 4px 6px;
       border-radius: 6px;
@@ -226,14 +228,14 @@ $exportHref = "export_heatmap_pdf.php?page=" . rawurlencode($selectedPage);
     }
 
     .stat {
-      background: #121212;
+      background: #f1e4ba;
       border: 1px solid #333;
       border-radius: 10px;
       padding: 12px;
     }
 
     .muted {
-      color: #aaa;
+      color: #66585b;
       font-size: 0.95rem;
     }
 
@@ -245,12 +247,58 @@ $exportHref = "export_heatmap_pdf.php?page=" . rawurlencode($selectedPage);
       margin-top: 12px;
       line-height: 1.5;
     }
+
+    .success-box {
+      border: 1px solid #2e7d32;
+      background: rgba(46, 125, 50, 0.12);
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    .success-box p {
+      margin: 0 0 8px;
+    }
+
+    .success-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .error-box {
+      border: 1px solid #b71c1c;
+      background: rgba(183, 28, 28, 0.10);
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    .error-box p {
+      margin: 0 0 8px;
+    }
+
+    .error-box p:last-child {
+      margin-bottom: 0;
+    }
   </style>
 </head>
 <body>
   <?php include __DIR__ . "/../includes/header.php"; ?>
 
   <div class="container">
+    <?php if ($pdfUrl !== ""): ?>
+      <div class="card success-box">
+        <p><strong>PDF exported successfully.</strong></p>
+        <p>
+          <a href="<?= htmlspecialchars($pdfUrl) ?>" target="_blank" rel="noopener">Open exported PDF</a>
+        </p>
+      </div>
+    <?php endif; ?>
+
+    <?php if ($pdfError !== ""): ?>
+      <div class="card error-box">
+        <p><strong>Export failed.</strong></p>
+        <p><?= htmlspecialchars($pdfError) ?></p>
+      </div>
+    <?php endif; ?>
+
     <div class="card">
       <h1>Click Heatmap</h1>
       <p class="small">
@@ -279,17 +327,6 @@ $exportHref = "export_heatmap_pdf.php?page=" . rawurlencode($selectedPage);
           </div>
         <?php endif; ?>
       </form>
-
-      <?php if ($pdfUrl !== ""): ?>
-        <p class="small" style="margin-top:12px;">
-          PDF created:
-          <a href="<?= htmlspecialchars($pdfUrl) ?>" target="_blank" rel="noopener">Open report</a>
-        </p>
-      <?php endif; ?>
-
-      <?php if ($pdfError !== ""): ?>
-        <p class="small" style="margin-top:12px;">Export failed: <?= htmlspecialchars($pdfError) ?></p>
-      <?php endif; ?>
     </div>
 
     <div class="card">
